@@ -9,6 +9,13 @@ const corsOptions = {
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
+const db = require("./Models/index");
+db.sequelize.sync();
+
+// db.sequelize.sync().then(() => {
+//     console.log("Database Connected ----");
+//   });
+
 app.use(cors(corsOptions));
 
 app.use(bodyParser.json());
