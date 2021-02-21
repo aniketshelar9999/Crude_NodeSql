@@ -136,8 +136,6 @@ exports.delete = (req, res) => {
       });
   };
 
-  
-
   exports.deleteAll = (req, res) => {
     Employe.destroy({
       where: {},
