@@ -26,6 +26,8 @@ app.get("/", (req, res) => {
     res.json({ message: "Welcome to Crude Operation application." });
 });
 
+require("./routes/employe.routes")(app);
+
 const PORT = process.env.PORT || 9999;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
