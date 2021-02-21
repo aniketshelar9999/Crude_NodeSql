@@ -1,12 +1,23 @@
 module.exports = app => {
-    // const tutorials = require("../controllers/tutorial.controller.js");
-      const employe = require("../Controllers/employe.controller");
 
-  
+    const employe = require("../Controllers/employe.controller");
+
+
     var router = require("express").Router();
-  
-    // Create a new Tutorial
+
+    // Create a new Employe
     router.post("/", employe.create);
-  
+
+    // Retrieve all Employes
+    router.get("/", employe.findAll);
+
+    // Retrieve a single Employe with id
+    router.get("/:id", employe.findOne);
+
+    //update a single Employe with id
+    router.put("/:id", employe.update);
+
+ 
+
     app.use('/api/employe', router);
-  };
+};

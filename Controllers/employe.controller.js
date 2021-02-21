@@ -24,7 +24,7 @@ exports.create = (req, res) => {
     }
     if (!req.body.salary) {
         res.status(400).send({
-            message: "desigination can not be empty!"
+            message: "salary can not be empty!"
         });
         return;
     }
@@ -36,7 +36,7 @@ exports.create = (req, res) => {
     }
     if (!req.body.dateofbirth) {
         res.status(400).send({
-            message: "number can not be empty!"
+            message: "dateofbirth can not be empty!"
         });
         return;
     }
@@ -57,6 +57,57 @@ exports.create = (req, res) => {
             res.status(500).send({
                 message:
                     err.message || "Some error occurred while adding employe."
+            });
+        });
+};
+
+exports.findAll = (req, res) => {
+    Employe.findAll()
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while retrieving all employes."
+            });
+        });
+};
+
+exports.findOne = (req, res) => {
+    const id = req.params.id;
+
+    Employe.findByPk(id)
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error retrieving Employe with id=" + id
+            });
+        });
+};
+
+exports.update = (req, res) => {
+    const id = req.params.id;
+
+    Employe.update(req.body, {
+        where: { id: id }
+    })
+        .then(num => {
+            if (num == 1) {
+                res.send({
+                    message: "Employe was updated successfully."
+                });
+            } else {
+                res.send({
+                    message: `Cannot update Employe with id=${id}. Maybe Employe was not found or req.body is empty!`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error updating Employe with id=" + id
             });
         });
 };
