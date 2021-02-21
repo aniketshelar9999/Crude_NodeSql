@@ -114,40 +114,54 @@ exports.update = (req, res) => {
 
 exports.delete = (req, res) => {
     const id = req.params.id;
-  
-    Employe.destroy({
-      where: { id: id }
-    })
-      .then(num => {
-        if (num == 1) {
-          res.send({
-            message: "Employe was deleted successfully!"
-          });
-        } else {
-          res.send({
-            message: `Cannot delete Employe with id=${id}. Maybe Employe was not found!`
-          });
-        }
-      })
-      .catch(err => {
-        res.status(500).send({
-          message: "Could not delete Employe with id=" + id
-        });
-      });
-  };
 
-  exports.deleteAll = (req, res) => {
     Employe.destroy({
-      where: {},
-      truncate: false
+        where: { id: id }
     })
-      .then(nums => {
-        res.send({ message: `${nums} Employes were deleted successfully!` });
-      })
-      .catch(err => {
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while removing all Employes."
+        .then(num => {
+            if (num == 1) {
+                res.send({
+                    message: "Employe was deleted successfully!"
+                });
+            } else {
+                res.send({
+                    message: `Cannot delete Employe with id=${id}. Maybe Employe was not found!`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Could not delete Employe with id=" + id
+            });
         });
-      });
-  };
+};
+
+exports.deleteAll = (req, res) => {
+    Employe.destroy({
+        where: {},
+        truncate: false
+    })
+        .then(nums => {
+            res.send({ message: `${nums} Employes were deleted successfully!` });
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while removing all Employes."
+            });
+        });
+};
+
+exports.findAlldesigination = (req, res) => {
+    const desigination = req.body.desigination;
+    Employe.findAll({ where: { desigination: desigination } })
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while retrieving  Developers."
+            });
+        });
+};

@@ -17,10 +17,15 @@ module.exports = app => {
     //update a single Employe with id
     router.put("/:id", employe.update);
 
+    //delete single Employe by id
     router.delete("/:id", employe.delete);
 
+    //delete all Employe
     router.delete("/", employe.deleteAll);
-    
+
+    //get devlopers by desigination
+    router.post("/desiginations", employe.findAlldesigination);
+
 
     app.use('/api/employe', router);
 };
